@@ -1,24 +1,6 @@
 import { PropertyWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
-import { ICreateProperty } from "./property.interface";
 
-const createProperty = async (landlordId: string, payload: ICreateProperty) => {
-  const Property = await prisma.property.create({
-    data: {
-      ...payload,
-      landlordId: landlordId,
-    },
-    include: {
-      category: true,
-      landlord: {
-        omit: {
-          password: true,
-        },
-      },
-    },
-  });
-  return Property;
-};
 interface IPropertyQuery extends PropertyWhereInput {
   searchTerm?: string;
   page?: string;
@@ -72,7 +54,6 @@ const getAllProperties = async (query: IPropertyQuery) => {
     });
   }
 
-  // 📍 LOCATION FILTER
   if (query.location) {
     andConditions.push({
       city: {
@@ -82,7 +63,7 @@ const getAllProperties = async (query: IPropertyQuery) => {
     });
   }
 
-  // 🏷️ TYPE FILTER (CATEGORY)
+  //
   if (query.type) {
     andConditions.push({
       category: {
@@ -172,7 +153,6 @@ const getAllCategories = async () => {
   return categories;
 };
 export const propertyService = {
-  createProperty,
   getAllProperties,
   getPropertyById,
   getAllCategories,

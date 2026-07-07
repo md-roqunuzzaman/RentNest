@@ -1,21 +1,21 @@
 model Property {
-    id           String   @id @default(uuid())
-    title        String
-    description  String
-    rent         Float
-    city         String
-    address      String
-    bedrooms     Int
-    bathrooms    Int
-    availability Boolean  @default(true)
-    image        String?
-    categoryId   String
-    category     Category @relation(fields: [categoryId], references: [id])
-    landlordId   String
-    landlord     User     @relation(fields: [landlordId], references: [id], onUpdate: Cascade)
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id            String          @id @default(uuid())
+    title         String
+    description   String
+    rent          Float
+    city          String
+    address       String
+    bedrooms      Int
+    bathrooms     Int
+    availability  Boolean         @default(true)
+    image         String?
+    categoryId    String
+    category      Category        @relation(fields: [categoryId], references: [id])
+    landlordId    String
+    landlord      User            @relation(fields: [landlordId], references: [id], onUpdate: Cascade)
+    rentalRequest RentalRequest[]
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
 
     @@index([city])
     @@index([rent])

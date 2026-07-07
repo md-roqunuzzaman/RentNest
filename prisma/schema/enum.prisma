@@ -19,3 +19,11 @@ enum PropertyType {
     OFFICE
     SHOP
 }
+
+enum RentalStatus {
+    PENDING
+    APPROVED
+    REJECTED
+    ACTIVE
+    COMPLETED
+}

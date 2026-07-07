@@ -1,25 +1,10 @@
-import { NextFunction, Request, Response } from "express";
-import { CatchAsync } from "../../utilities/catchAsync";
+import { Request, Response } from "express";
+
 import { propertyService } from "./property.service";
 import { sendResponse } from "../../utilities/sendResponse";
 import httpStatus from "http-status";
 import { categoryService } from "../categories/categories.service";
-const createProperty = CatchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const landlordId = req.user?.id;
-    const payload = req.body;
-    const result = await propertyService.createProperty(
-      landlordId as string,
-      payload,
-    );
-    sendResponse(res, {
-      success: true,
-      statusCode: httpStatus.CREATED,
-      message: "property created successfully",
-      data: result,
-    });
-  },
-);
+
 const getAllProperties = async (req: Request, res: Response) => {
   const result = await propertyService.getAllProperties(req.query);
 
@@ -55,7 +40,6 @@ const getAllCategories = async (req: Request, res: Response) => {
   });
 };
 export const propertyController = {
-  createProperty,
   getAllProperties,
   getPropertyById,
   getAllCategories,
