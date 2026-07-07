@@ -1,3 +1,5 @@
+import { RentalStatus } from "../../../generated/prisma/browser";
+
 export interface ICreateProperty {
   title: string;
   description: string;
@@ -11,4 +13,7 @@ export interface ICreateProperty {
 
   categoryId: string;
   landlordId: string;
+}
+export interface IUpdateRentalRequestStatus {
+  status: RentalStatus;
 }

@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/properties", propertyRouter);
-app.use("/api/landlord/properties", landlordRouter);
+app.use("/api/landlord", landlordRouter);
 app.use("/api/rentals", rentalRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("hello home");
