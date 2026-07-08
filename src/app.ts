@@ -10,8 +10,10 @@ import { Role } from "../generated/prisma/enums";
 import { landlordRouter } from "./modules/landlord/landlord.route";
 import { rentalRouter } from "./rental-Ruquest/rental.route";
 import { paymentRouter } from "./modules/payments/payment.route";
+
 import { globalErrorHandler } from "./middleware/globalErrorHandler";
 import { notFound } from "./middleware/notFound";
+import { reviewRouter } from "./modules/review/review.route";
 
 const app: Application = express();
 app.use(
@@ -30,6 +32,7 @@ app.use("/api/properties", propertyRouter);
 app.use("/api/landlord", landlordRouter);
 app.use("/api/rentals", rentalRouter);
 app.use("/api/payments", paymentRouter);
+app.use("/api/reviews", reviewRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("hello home");
 });
