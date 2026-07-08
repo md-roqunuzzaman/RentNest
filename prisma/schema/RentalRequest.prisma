@@ -12,9 +12,10 @@ model RentalRequest {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    tenant   User     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-    property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+    payment   Payment?
+    tenant    User     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+    property  Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+    review    Review?
 
     @@index([tenantId])
     @@index([propertyId])

@@ -3,6 +3,26 @@ export { Prisma };
 export * as $Enums from './enums';
 export * from './enums';
 /**
+ * Model RentalRequest
+ *
+ */
+export type RentalRequest = Prisma.RentalRequestModel;
+/**
+ * Model Category
+ *
+ */
+export type Category = Prisma.CategoryModel;
+/**
+ * Model Payment
+ *
+ */
+export type Payment = Prisma.PaymentModel;
+/**
+ * Model Property
+ *
+ */
+export type Property = Prisma.PropertyModel;
+/**
  * Model User
  *
  */

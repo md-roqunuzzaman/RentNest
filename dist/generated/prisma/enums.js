@@ -16,4 +16,32 @@ export const UserStatus = {
     ACTIVE: 'ACTIVE',
     BLOCKED: 'BLOCKED'
 };
+export const PropertyType = {
+    APARTMENT: 'APARTMENT',
+    HOUSE: 'HOUSE',
+    STUDIO: 'STUDIO',
+    DUPLEX: 'DUPLEX',
+    VILLA: 'VILLA',
+    PENTHOUSE: 'PENTHOUSE',
+    OFFICE: 'OFFICE',
+    SHOP: 'SHOP'
+};
+export const RentalStatus = {
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    REJECTED: 'REJECTED',
+    ACTIVE: 'ACTIVE',
+    COMPLETED: 'COMPLETED'
+};
+export const PaymentProvider = {
+    STRIPE: 'STRIPE'
+};
+export const PaymentMethod = {
+    CARD: 'CARD'
+};
+export const PaymentStatus = {
+    PENDING: 'PENDING',
+    COMPLETED: 'COMPLETED',
+    FAILED: 'FAILED'
+};
 //# sourceMappingURL=enums.js.map

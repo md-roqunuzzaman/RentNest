@@ -39,6 +39,10 @@ export const JsonNull = runtime.JsonNull;
  */
 export const AnyNull = runtime.AnyNull;
 export const ModelName = {
+    RentalRequest: 'RentalRequest',
+    Category: 'Category',
+    Payment: 'Payment',
+    Property: 'Property',
     User: 'User'
 };
 /*
@@ -50,6 +54,52 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
     RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
 });
+export const RentalRequestScalarFieldEnum = {
+    id: 'id',
+    tenantId: 'tenantId',
+    propertyId: 'propertyId',
+    moveInDate: 'moveInDate',
+    months: 'months',
+    message: 'message',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const CategoryScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const PaymentScalarFieldEnum = {
+    id: 'id',
+    rentalRequestId: 'rentalRequestId',
+    amount: 'amount',
+    provider: 'provider',
+    method: 'method',
+    transactionId: 'transactionId',
+    sessionId: 'sessionId',
+    status: 'status',
+    paidAt: 'paidAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const PropertyScalarFieldEnum = {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    rent: 'rent',
+    city: 'city',
+    address: 'address',
+    bedrooms: 'bedrooms',
+    bathrooms: 'bathrooms',
+    availability: 'availability',
+    image: 'image',
+    categoryId: 'categoryId',
+    landlordId: 'landlordId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
 export const UserScalarFieldEnum = {
     id: 'id',
     name: 'name',
@@ -67,5 +117,9 @@ export const SortOrder = {
 export const QueryMode = {
     default: 'default',
     insensitive: 'insensitive'
+};
+export const NullsOrder = {
+    first: 'first',
+    last: 'last'
 };
 //# sourceMappingURL=prismaNamespaceBrowser.js.map

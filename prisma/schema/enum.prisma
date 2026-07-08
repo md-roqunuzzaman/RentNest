@@ -27,3 +27,17 @@ enum RentalStatus {
     ACTIVE
     COMPLETED
 }
+
+enum PaymentProvider {
+    STRIPE
+}
+
+enum PaymentMethod {
+    CARD
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+}

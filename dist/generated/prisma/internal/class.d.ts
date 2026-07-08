@@ -11,8 +11,8 @@ export interface PrismaClientConstructor {
    * const prisma = new PrismaClient({
    *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
    * })
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more RentalRequests
+   * const rentalRequests = await prisma.rentalRequest.findMany()
    * ```
    *
    * Read more in our [docs](https://pris.ly/d/client).
@@ -30,8 +30,8 @@ export interface PrismaClientConstructor {
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more RentalRequests
+ * const rentalRequests = await prisma.rentalRequest.findMany()
  * ```
  *
  * Read more in our [docs](https://pris.ly/d/client).
@@ -118,13 +118,57 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         extArgs: ExtArgs;
     }>>;
     /**
- * `prisma.user`: Exposes CRUD operations for the **User** model.
+ * `prisma.rentalRequest`: Exposes CRUD operations for the **RentalRequest** model.
   * Example usage:
   * ```ts
-  * // Fetch zero or more Users
-  * const users = await prisma.user.findMany()
+  * // Fetch zero or more RentalRequests
+  * const rentalRequests = await prisma.rentalRequest.findMany()
   * ```
   */
+    get rentalRequest(): Prisma.RentalRequestDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.category`: Exposes CRUD operations for the **Category** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Categories
+      * const categories = await prisma.category.findMany()
+      * ```
+      */
+    get category(): Prisma.CategoryDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.payment`: Exposes CRUD operations for the **Payment** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Payments
+      * const payments = await prisma.payment.findMany()
+      * ```
+      */
+    get payment(): Prisma.PaymentDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.property`: Exposes CRUD operations for the **Property** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Properties
+      * const properties = await prisma.property.findMany()
+      * ```
+      */
+    get property(): Prisma.PropertyDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    /**
+     * `prisma.user`: Exposes CRUD operations for the **User** model.
+      * Example usage:
+      * ```ts
+      * // Fetch zero or more Users
+      * const users = await prisma.user.findMany()
+      * ```
+      */
     get user(): Prisma.UserDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;

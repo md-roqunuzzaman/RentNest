@@ -41,6 +41,9 @@ const loginUser = async (payload) => {
     const user = await prisma.user.findUniqueOrThrow({
         where: { email },
     });
+    if (user.status === "BLOCKED") {
+        throw new Error("Your account has been blocked. Please contact support.");
+    }
     const isPasswordMatched = await bcrypt.compare(password, user.password);
     if (!isPasswordMatched) {
         throw new Error("Password is incorrect");
@@ -69,6 +72,9 @@ const refreshToken = async (refreshToken) => {
             id,
         },
     });
+    if (user.status === "BLOCKED") {
+        throw new Error("Your account has been blocked. Please contact support.");
+    }
     const jwtPayload = {
         id,
         name: user.name,

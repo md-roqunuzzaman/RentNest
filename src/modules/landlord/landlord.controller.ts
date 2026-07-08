@@ -70,8 +70,8 @@ const updateRentalRequestStatus = async (req: Request, res: Response) => {
   const requestId = req.params.id;
 
   const result = await landlordService.updateRentalRequestStatus(
-    userId,
-    requestId,
+    userId as string,
+    requestId as string,
     req.body,
   );
 
