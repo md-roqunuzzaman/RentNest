@@ -44,8 +44,20 @@ const getAllProperties = CatchAsync(
     });
   },
 );
+const getStats = CatchAsync(async (req, res) => {
+  const result = await adminService.getStats();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Admin stats retrieved successfully",
+    data: result,
+  });
+});
+
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
+  getStats,
 };

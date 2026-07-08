@@ -1,4 +1,8 @@
-import { UserStatus } from "../../../generated/prisma/enums";
+import {
+  PaymentStatus,
+  RentalStatus,
+  UserStatus,
+} from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { IUpdateUserStatus } from "./admin.interface";
 
@@ -55,9 +59,84 @@ const updateUserStatus = async (userId: string, payload: IUpdateUserStatus) => {
   return updatedUser;
 };
 
-const getAllProperties = async () => {};
+const getAllProperties = async () => {
+  const properties = await prisma.property.findMany({
+    include: {
+      landlord: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+
+      category: true,
+
+      rentalRequest: {
+        select: {
+          id: true,
+          status: true,
+        },
+      },
+    },
+
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return properties;
+};
+
+const getStats = async () => {
+  const [
+    totalUsers,
+    totalProperties,
+    availableProperties,
+    totalRentalRequests,
+    activeRentals,
+    totalRevenue,
+  ] = await Promise.all([
+    prisma.user.count(),
+
+    prisma.property.count(),
+
+    prisma.property.count({
+      where: {
+        availability: true,
+      },
+    }),
+
+    prisma.rentalRequest.count(),
+
+    prisma.rentalRequest.count({
+      where: {
+        status: RentalStatus.ACTIVE,
+      },
+    }),
+
+    prisma.payment.aggregate({
+      where: {
+        status: PaymentStatus.COMPLETED,
+      },
+      _sum: {
+        amount: true,
+      },
+    }),
+  ]);
+
+  return {
+    totalUsers,
+    totalProperties,
+    availableProperties,
+    totalRentalRequests,
+    activeRentals,
+    totalRevenue: totalRevenue._sum.amount || 0,
+  };
+};
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
+  getStats,
 };
