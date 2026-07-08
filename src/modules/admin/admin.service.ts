@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import { IUpdateUserStatus } from "./admin.interface";
 
 const getAllUsers = async () => {
   const users = await prisma.user.findMany({
@@ -12,6 +13,12 @@ const getAllUsers = async () => {
 
   return users;
 };
+
+const updateUserStatus = async (
+  userId: string,
+  payload: IUpdateUserStatus,
+) => {};
 export const adminService = {
   getAllUsers,
+  updateUserStatus,
 };
