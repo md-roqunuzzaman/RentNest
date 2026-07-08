@@ -54,7 +54,10 @@ const updateUserStatus = async (userId: string, payload: IUpdateUserStatus) => {
 
   return updatedUser;
 };
+
+const getAllProperties = async () => {};
 export const adminService = {
   getAllUsers,
   updateUserStatus,
+  getAllProperties,
 };
