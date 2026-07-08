@@ -14,6 +14,7 @@ import { paymentRouter } from "./modules/payments/payment.route";
 import { globalErrorHandler } from "./middleware/globalErrorHandler";
 import { notFound } from "./middleware/notFound";
 import { reviewRouter } from "./modules/review/review.route";
+import { adminRouter } from "./modules/admin/admin.route";
 
 const app: Application = express();
 app.use(
@@ -33,6 +34,7 @@ app.use("/api/landlord", landlordRouter);
 app.use("/api/rentals", rentalRouter);
 app.use("/api/payments", paymentRouter);
 app.use("/api/reviews", reviewRouter);
+app.use("/api/admin", adminRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("hello home");
 });
