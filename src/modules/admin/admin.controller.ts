@@ -54,10 +54,21 @@ const getStats = CatchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllRentals = CatchAsync(async (req, res) => {
+  const result = await adminService.getAllRentals();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Rental requests retrieved successfully",
+    data: result,
+  });
+});
 
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
   getStats,
+  getAllRentals,
 };

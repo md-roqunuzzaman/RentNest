@@ -134,9 +134,47 @@ const getStats = async () => {
     totalRevenue: totalRevenue._sum.amount || 0,
   };
 };
+
+const getAllRentals = async () => {
+  const rentals = await prisma.rentalRequest.findMany({
+    include: {
+      tenant: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+        },
+      },
+      property: {
+        select: {
+          id: true,
+          title: true,
+          rent: true,
+          city: true,
+          address: true,
+          landlord: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return rentals;
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
   getStats,
+  getAllRentals,
 };
