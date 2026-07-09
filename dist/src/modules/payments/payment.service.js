@@ -28,7 +28,6 @@ const createPayment = async (userId, payload) => {
     if (existingPayment) {
         throw new Error("Payment already created");
     }
-    // Total amount
     const amount = rentalRequest.property.rent * rentalRequest.months;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],

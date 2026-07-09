@@ -12,19 +12,5 @@ export declare const categoryService: {
         createdAt: Date;
         updatedAt: Date;
     }[]>;
-    updateCategory: (categoryId: string, payload: {
-        name: string;
-    }) => Promise<{
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }>;
-    deleteCategory: (categoryId: string) => Promise<{
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }>;
 };
 //# sourceMappingURL=categories.service.d.ts.map
