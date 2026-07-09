@@ -10,6 +10,8 @@ import { rentalRouter } from "./rental-Ruquest/rental.route";
 import { paymentRouter } from "./modules/payments/payment.route";
 import { globalErrorHandler } from "./middleware/globalErrorHandler";
 import { notFound } from "./middleware/notFound";
+import { reviewRouter } from "./modules/review/review.route";
+import { adminRouter } from "./modules/admin/admin.route";
 const app = express();
 app.use(cors({
     origin: config.app_url,
@@ -25,6 +27,8 @@ app.use("/api/properties", propertyRouter);
 app.use("/api/landlord", landlordRouter);
 app.use("/api/rentals", rentalRouter);
 app.use("/api/payments", paymentRouter);
+app.use("/api/reviews", reviewRouter);
+app.use("/api/admin", adminRouter);
 app.get("/", (req, res) => {
     res.send("hello home");
 });

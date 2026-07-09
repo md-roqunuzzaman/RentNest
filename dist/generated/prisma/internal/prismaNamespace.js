@@ -71,6 +71,7 @@ export const ModelName = {
     Category: 'Category',
     Payment: 'Payment',
     Property: 'Property',
+    Review: 'Review',
     User: 'User'
 };
 /**
@@ -125,6 +126,16 @@ export const PropertyScalarFieldEnum = {
     image: 'image',
     categoryId: 'categoryId',
     landlordId: 'landlordId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+export const ReviewScalarFieldEnum = {
+    id: 'id',
+    tenantId: 'tenantId',
+    propertyId: 'propertyId',
+    rentalRequestId: 'rentalRequestId',
+    rating: 'rating',
+    comment: 'comment',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

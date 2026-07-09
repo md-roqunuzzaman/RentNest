@@ -30,6 +30,7 @@ export declare const ModelName: {
     readonly Category: "Category";
     readonly Payment: "Payment";
     readonly Property: "Property";
+    readonly Review: "Review";
     readonly User: "User";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -90,6 +91,17 @@ export declare const PropertyScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum];
+export declare const ReviewScalarFieldEnum: {
+    readonly id: "id";
+    readonly tenantId: "tenantId";
+    readonly propertyId: "propertyId";
+    readonly rentalRequestId: "rentalRequestId";
+    readonly rating: "rating";
+    readonly comment: "comment";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum];
 export declare const UserScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";

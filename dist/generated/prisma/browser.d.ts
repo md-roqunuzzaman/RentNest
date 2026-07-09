@@ -23,6 +23,11 @@ export type Payment = Prisma.PaymentModel;
  */
 export type Property = Prisma.PropertyModel;
 /**
+ * Model Review
+ *
+ */
+export type Review = Prisma.ReviewModel;
+/**
  * Model User
  *
  */

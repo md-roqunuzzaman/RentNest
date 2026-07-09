@@ -34,9 +34,21 @@ const getMyPayments = CatchAsync(async (req, res) => {
         data: result,
     });
 });
+const getPaymentById = CatchAsync(async (req, res) => {
+    const userId = req.user?.id;
+    const paymentId = req.params.id;
+    const result = await paymentService.getPaymentById(userId, paymentId);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Payment retrieved successfully",
+        data: result,
+    });
+});
 export const paymentController = {
     createPayment,
     confirmPayment,
     getMyPayments,
+    getPaymentById,
 };
 //# sourceMappingURL=payment.controller.js.map

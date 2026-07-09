@@ -32,7 +32,7 @@ const updateUserStatus = async (userId: string, payload: IUpdateUserStatus) => {
 
   if (
     payload.status !== UserStatus.ACTIVE &&
-    payload.status !== UserStatus.BANNED
+    payload.status !== UserStatus.BLOCKED
   ) {
     throw new Error("Invalid user status");
   }

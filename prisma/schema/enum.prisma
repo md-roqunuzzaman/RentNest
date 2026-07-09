@@ -6,7 +6,7 @@ enum Role {
 
 enum UserStatus {
     ACTIVE
-    BANNED
+    BLOCKED
 }
 
 enum PropertyType {

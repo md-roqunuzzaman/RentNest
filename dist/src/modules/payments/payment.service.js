@@ -65,7 +65,7 @@ const createPayment = async (userId, payload) => {
     };
 };
 const confirmPayment = async (payload, signature) => {
-    console.log("🔥 Webhook called");
+    console.log(" Webhook called");
     if (!signature) {
         throw new Error("Stripe signature is missing");
     }
@@ -140,9 +140,35 @@ const getMyPayments = async (userId) => {
         },
     });
 };
+const getPaymentById = async (userId, paymentId) => {
+    const payment = await prisma.payment.findFirst({
+        where: {
+            id: paymentId,
+            rentalRequest: {
+                tenantId: userId,
+            },
+        },
+        include: {
+            rentalRequest: {
+                include: {
+                    property: {
+                        include: {
+                            category: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+    if (!payment) {
+        throw new Error("Payment not found");
+    }
+    return payment;
+};
 export const paymentService = {
     createPayment,
     confirmPayment,
     getMyPayments,
+    getPaymentById,
 };
 //# sourceMappingURL=payment.service.js.map
