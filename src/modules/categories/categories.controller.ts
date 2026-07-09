@@ -34,46 +34,7 @@ const getAllCategories = async (
   });
 };
 
-const updateCategory = async (req: Request, res: Response) => {
-  const { categoryId } = req.params;
-  const payload = req.body;
-
-  const isAdmin = req.user?.role == "ADMIN";
-  if (!isAdmin) {
-    throw new Error("You are not authorized");
-  }
-  const result = await categoryService.updateCategory(
-    categoryId as string,
-
-    payload,
-  );
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "category updated successfully",
-    data: result,
-  });
-};
-
-const deleteCategory = async (req: Request, res: Response) => {
-  const { categoryId } = req.params;
-  const isAdmin = req.user?.role == "ADMIN";
-  if (!isAdmin) {
-    throw new Error("You are not authorized");
-  }
-  const result = await categoryService.deleteCategory(categoryId as string);
-
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "category deleted successfully",
-    data: {},
-  });
-};
 export const categoryController = {
   createCategory,
   getAllCategories,
-  updateCategory,
-  deleteCategory,
 };

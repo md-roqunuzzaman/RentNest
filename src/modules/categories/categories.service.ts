@@ -23,50 +23,8 @@ const getAllCategories = async () => {
     orderBy: { createdAt: "desc" },
   });
 };
-const updateCategory = async (
-  categoryId: string,
 
-  payload: { name: string },
-) => {
-  if (!categoryId) {
-    throw new Error("Category id is required");
-  }
-
-  const category = await prisma.category.findUnique({
-    where: { id: categoryId },
-  });
-
-  if (!category) {
-    throw new Error("Category not found");
-  }
-
-  return await prisma.category.update({
-    where: { id: categoryId },
-    data: payload,
-  });
-};
-
-const deleteCategory = async (categoryId: string) => {
-  const category = await prisma.category.findUnique({
-    where: { id: categoryId },
-    include: { properties: true },
-  });
-
-  if (!category) {
-    throw new Error("Category not found");
-  }
-
-  if (category.properties.length > 0) {
-    throw new Error("Cannot delete category with properties");
-  }
-
-  return await prisma.category.delete({
-    where: { id: categoryId },
-  });
-};
 export const categoryService = {
   createCategory,
   getAllCategories,
-  updateCategory,
-  deleteCategory,
 };

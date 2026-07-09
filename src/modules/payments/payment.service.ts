@@ -38,7 +38,6 @@ const createPayment = async (userId: string, payload: ICreatePayment) => {
     throw new Error("Payment already created");
   }
 
-  // Total amount
   const amount = rentalRequest.property.rent * rentalRequest.months;
 
   const session = await stripe.checkout.sessions.create({
