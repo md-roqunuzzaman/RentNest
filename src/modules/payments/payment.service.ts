@@ -56,8 +56,8 @@ const createPayment = async (userId: string, payload: ICreatePayment) => {
         },
       },
     ],
-    success_url: `${config.app_url}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${config.app_url}/payment-cancel`,
+    success_url: `${config.app_url}/payment/success?session_id={CHECKOUT_SESSION_ID}&rentalRequestId=${rentalRequest.id}`,
+    cancel_url: `${config.app_url}/payment/cancel`,
   });
 
   const payment = await prisma.payment.create({
