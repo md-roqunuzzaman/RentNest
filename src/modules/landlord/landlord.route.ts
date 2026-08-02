@@ -29,4 +29,10 @@ router.patch(
   auth(Role.LANDLORD),
   landlordController.updateRentalRequestStatus,
 );
+router.get(
+  "/properties",
+  auth(Role.LANDLORD),
+
+  landlordController.getMyProperties,
+);
 export const landlordRouter = router;
