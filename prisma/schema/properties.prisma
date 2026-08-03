@@ -7,6 +7,8 @@ model Property {
     address       String
     bedrooms      Int
     bathrooms     Int
+    areaSqFt      Int?
+    amenities     String[]
     availability  Boolean         @default(true)
     image         String?
     categoryId    String

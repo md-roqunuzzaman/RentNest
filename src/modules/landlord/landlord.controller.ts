@@ -5,6 +5,7 @@ import { sendResponse } from "../../utilities/sendResponse";
 import httpStatus from "http-status";
 const createProperty = CatchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log("REQUEST BODY:", req.body);
     const landlordId = req.user?.id;
     const payload = req.body;
     const result = await landlordService.createProperty(

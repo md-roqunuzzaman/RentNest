@@ -8,7 +8,8 @@ export interface ICreateProperty {
   address: string;
   bedrooms: number;
   bathrooms: number;
-
+  areaSqFt?: number;
+  amenities: string[];
   image?: string;
 
   categoryId: string;

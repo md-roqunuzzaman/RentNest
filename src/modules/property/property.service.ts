@@ -1,7 +1,8 @@
-import { PropertyWhereInput } from "../../../generated/prisma/models";
+import { Prisma } from "../../../generated/prisma/client";
+
 import { prisma } from "../../lib/prisma";
 
-interface IPropertyQuery extends PropertyWhereInput {
+interface IPropertyQuery {
   searchTerm?: string;
   page?: string;
   limit?: string;
@@ -11,6 +12,7 @@ interface IPropertyQuery extends PropertyWhereInput {
   type?: string;
   minPrice?: string;
   maxPrice?: string;
+  amenities?: string;
 }
 
 const getAllProperties = async (query: IPropertyQuery) => {
@@ -19,7 +21,7 @@ const getAllProperties = async (query: IPropertyQuery) => {
   const skip = (page - 1) * limit;
   const sortBy = query.sortBy ? query.sortBy : "createdAt";
   const sortOrder = query.sortOrder ? query.sortOrder : "desc";
-  const andConditions: PropertyWhereInput[] = [];
+  const andConditions: Prisma.PropertyWhereInput[] = [];
   // Search by title, city, address
   if (query.searchTerm) {
     andConditions.push({
@@ -74,7 +76,13 @@ const getAllProperties = async (query: IPropertyQuery) => {
       },
     });
   }
-
+  if (query.amenities) {
+    andConditions.push({
+      amenities: {
+        has: query.amenities,
+      },
+    });
+  }
   // price filter
   if (query.minPrice || query.maxPrice) {
     andConditions.push({
