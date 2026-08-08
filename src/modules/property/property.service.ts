@@ -6,8 +6,8 @@ interface IPropertyQuery {
   searchTerm?: string;
   page?: string;
   limit?: string;
-  sortBy?: string;
-  sortOrder?: string;
+  sortBy?: "rent" | "createdAt";
+  sortOrder?: "asc" | "desc";
   location?: string;
   type?: string;
   minPrice?: string;
@@ -19,8 +19,12 @@ const getAllProperties = async (query: IPropertyQuery) => {
   const limit = query.limit ? Number(query.limit) : 10;
   const page = query.page ? Number(query.page) : 1;
   const skip = (page - 1) * limit;
-  const sortBy = query.sortBy ? query.sortBy : "createdAt";
-  const sortOrder = query.sortOrder ? query.sortOrder : "desc";
+  const sortBy =
+    query.sortBy === "rent" || query.sortBy === "createdAt"
+      ? query.sortBy
+      : "createdAt";
+
+  const sortOrder = query.sortOrder === "asc" ? "asc" : "desc";
   const andConditions: Prisma.PropertyWhereInput[] = [];
   // Search by title, city, address
   if (query.searchTerm) {
@@ -160,8 +164,83 @@ const getAllCategories = async () => {
 
   return categories;
 };
+//  const getRelatedProperties = async (propertyId: string) => {
+//   const property = await prisma.property.findUnique({
+//     where: {
+//       id: propertyId,
+//     },
+//   });
+
+//   if (!property) {
+//     throw new Error("Property not found");
+//   }
+
+const getRelatedProperties = async (propertyId: string) => {
+  const property = await prisma.property.findUnique({
+    where: {
+      id: propertyId,
+    },
+  });
+
+  if (!property) {
+    throw new Error("Property not found");
+  }
+
+  const relatedProperties = await prisma.property.findMany({
+    where: {
+      id: {
+        not: propertyId,
+      },
+
+      OR: [
+        // Same category
+        {
+          categoryId: property.categoryId,
+        },
+
+        // Same city
+        {
+          city: {
+            equals: property.city,
+            mode: "insensitive",
+          },
+        },
+
+        // Similar price range
+        {
+          rent: {
+            gte: Math.max(property.rent - 20000, 0),
+            lte: property.rent + 20000,
+          },
+        },
+      ],
+    },
+
+    take: 4,
+
+    include: {
+      category: true,
+
+      landlord: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return relatedProperties;
+};
+
 export const propertyService = {
   getAllProperties,
   getPropertyById,
   getAllCategories,
+  getRelatedProperties,
 };

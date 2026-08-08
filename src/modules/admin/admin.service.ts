@@ -96,7 +96,16 @@ const getStats = async () => {
     totalRentalRequests,
     activeRentals,
     totalRevenue,
+
+    // Chart data
+    usersByRole,
+    propertiesByCategory,
+    rentalRequestsByStatus,
   ] = await Promise.all([
+    // =========================
+    // Overview Stats
+    // =========================
+
     prisma.user.count(),
 
     prisma.property.count(),
@@ -123,15 +132,88 @@ const getStats = async () => {
         amount: true,
       },
     }),
+
+    // =========================
+    // Users By Role
+    // =========================
+
+    prisma.user.groupBy({
+      by: ["role"],
+      _count: {
+        _all: true,
+      },
+    }),
+
+    // =========================
+    // Properties By Category
+    // =========================
+
+    prisma.property.groupBy({
+      by: ["categoryId"],
+      _count: {
+        _all: true,
+      },
+    }),
+
+    // =========================
+    // Rental Requests By Status
+    // =========================
+
+    prisma.rentalRequest.groupBy({
+      by: ["status"],
+      _count: {
+        _all: true,
+      },
+    }),
   ]);
 
+  // Get category names
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
+  const categoryMap = new Map(
+    categories.map((category) => [category.id, category.name]),
+  );
+
   return {
+    // =========================
+    // Overview
+    // =========================
+
     totalUsers,
+
     totalProperties,
+
     availableProperties,
+
     totalRentalRequests,
+
     activeRentals,
+
     totalRevenue: totalRevenue._sum.amount || 0,
+
+    // =========================
+    // Chart Data
+    // =========================
+
+    usersByRole: usersByRole.map((item) => ({
+      role: item.role,
+      count: item._count._all,
+    })),
+
+    propertiesByCategory: propertiesByCategory.map((item) => ({
+      category: categoryMap.get(item.categoryId) ?? "Unknown",
+      count: item._count._all,
+    })),
+
+    rentalRequestsByStatus: rentalRequestsByStatus.map((item) => ({
+      status: item.status,
+      count: item._count._all,
+    })),
   };
 };
 

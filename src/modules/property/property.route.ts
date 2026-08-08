@@ -8,4 +8,5 @@ const router = Router();
 router.get("/", propertyController.getAllProperties);
 router.get("/:id", propertyController.getPropertyById);
 router.get("/", categoryController.getAllCategories);
+router.get("/:id/related", propertyController.getRelatedProperties);
 export const propertyRouter = router;

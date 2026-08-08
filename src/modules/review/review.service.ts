@@ -70,7 +70,30 @@ const createReview = async (userId: string, payload: ICreateReview) => {
 
   return review;
 };
+const getTestimonials = async () => {
+  const reviews = await prisma.review.findMany({
+    take: 6,
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      tenant: {
+        select: {
+          name: true,
+        },
+      },
+      property: {
+        select: {
+          title: true,
+        },
+      },
+    },
+  });
+
+  return reviews;
+};
 
 export const reviewService = {
   createReview,
+  getTestimonials,
 };

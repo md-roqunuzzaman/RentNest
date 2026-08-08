@@ -5,4 +5,5 @@ import { reviewController } from "./review.controller";
 
 const router = Router();
 router.post("/", auth(Role.TENANT), reviewController.createReview);
+router.get("/", reviewController.getTestimonials);
 export const reviewRouter = router;

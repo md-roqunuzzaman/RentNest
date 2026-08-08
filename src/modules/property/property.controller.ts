@@ -4,6 +4,7 @@ import { propertyService } from "./property.service";
 import { sendResponse } from "../../utilities/sendResponse";
 import httpStatus from "http-status";
 import { categoryService } from "../categories/categories.service";
+import { CatchAsync } from "../../utilities/catchAsync";
 
 const getAllProperties = async (req: Request, res: Response) => {
   const result = await propertyService.getAllProperties(req.query);
@@ -39,8 +40,21 @@ const getAllCategories = async (req: Request, res: Response) => {
     data: result,
   });
 };
+
+const getRelatedProperties = CatchAsync(async (req, res) => {
+  const id = req.params.id as string;
+
+  const result = await propertyService.getRelatedProperties(id);
+
+  res.status(200).json({
+    success: true,
+    message: "Related properties retrieved successfully",
+    data: result,
+  });
+});
 export const propertyController = {
   getAllProperties,
   getPropertyById,
   getAllCategories,
+  getRelatedProperties,
 };

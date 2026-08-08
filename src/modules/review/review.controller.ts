@@ -15,7 +15,18 @@ const createReview = CatchAsync(async (req, res) => {
     data: result,
   });
 });
+const getTestimonials = CatchAsync(async (req, res) => {
+  const result = await reviewService.getTestimonials();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Testimonials retrieved successfully",
+    data: result,
+  });
+});
 
 export const reviewController = {
   createReview,
+  getTestimonials,
 };
