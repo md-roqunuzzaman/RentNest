@@ -15,11 +15,12 @@ import { globalErrorHandler } from "./middleware/globalErrorHandler";
 import { notFound } from "./middleware/notFound";
 import { reviewRouter } from "./modules/review/review.route";
 import { adminRouter } from "./modules/admin/admin.route";
+import { contactRoute } from "./modules/contact/contact.route";
 
 const app: Application = express();
 app.use(
   cors({
-    origin: config.app_url,
+    origin: "http://localhost:3000",
     credentials: true,
   }),
 );
@@ -35,6 +36,7 @@ app.use("/api/rentals", rentalRouter);
 app.use("/api/payments", paymentRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/contact", contactRoute);
 app.get("/", (req: Request, res: Response) => {
   res.send("hello home");
 });

@@ -11,4 +11,5 @@ router.get(
   auth(Role.ADMIN, Role.LANDLORD, Role.TENANT),
   authController.getMe,
 );
+router.post("/google", authController.googleLogin);
 export const authRouter = router;

@@ -1,0 +1,15 @@
+model ContactMessage {
+    id String @id @default(uuid())
+
+    name String
+
+    email String
+
+    subject String
+
+    message String
+
+    status ContactStatus @default(UNREAD)
+
+    createdAt DateTime @default(now())
+}

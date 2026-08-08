@@ -253,10 +253,104 @@ const getAllRentals = async () => {
   return rentals;
 };
 
+const getAdminAnalytics = async () => {
+  const totalUsers = await prisma.user.count();
+
+  const totalProperties = await prisma.property.count();
+
+  const totalRequests = await prisma.rentalRequest.count();
+
+  // Active rental revenue
+
+  const activeRentals = await prisma.rentalRequest.findMany({
+    where: {
+      status: "ACTIVE",
+    },
+    include: {
+      property: true,
+    },
+  });
+
+  const revenue = activeRentals.reduce(
+    (sum, item) => sum + item.property.rent,
+    0,
+  );
+
+  // User Growth
+
+  const users = await prisma.user.findMany({
+    select: {
+      createdAt: true,
+    },
+  });
+
+  const userGrowth: any = {};
+
+  users.forEach((user) => {
+    const month = new Date(user.createdAt).toLocaleString("en-US", {
+      month: "short",
+    });
+
+    userGrowth[month] = (userGrowth[month] || 0) + 1;
+  });
+
+  const userGrowthData = Object.entries(userGrowth).map(([month, users]) => ({
+    month,
+    users,
+  }));
+
+  // Property Category Stats
+
+  const categories = await prisma.category.findMany({
+    include: {
+      properties: true,
+    },
+  });
+
+  const propertyStats = categories.map((category) => ({
+    category: category.name,
+
+    count: category.properties.length,
+  }));
+
+  // Rental Request Status
+
+  const statuses = await prisma.rentalRequest.groupBy({
+    by: ["status"],
+
+    _count: {
+      id: true,
+    },
+  });
+
+  const requestStatus = statuses.map((item) => ({
+    status: item.status,
+
+    count: item._count.id,
+  }));
+
+  return {
+    totalUsers,
+
+    totalProperties,
+
+    totalRequests,
+
+    revenue,
+
+    userGrowth: userGrowthData,
+
+    propertyStats,
+
+    requestStatus,
+  };
+};
+
 export const adminService = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
   getStats,
   getAllRentals,
+  getAdminAnalytics,
 };

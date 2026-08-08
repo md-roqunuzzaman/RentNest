@@ -87,9 +87,48 @@ const getMe = CatchAsync(
     });
   },
 );
+
+const googleLogin = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.body;
+    console.log("body", req.body);
+    console.log("header", res.header);
+
+    const result = await authService.googleLoginService(token);
+
+    res.cookie("accessToken", result.accessToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+
+    res.cookie("refreshToken", result.refreshToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    });
+
+    res.status(200).json({
+      success: true,
+
+      message: "Google login successful",
+
+      data: result.user,
+    });
+  } catch (error) {
+    console.log("GOOGLE LOGIN ERROR:", error);
+
+    res.status(400).json({
+      success: false,
+
+      message: error instanceof Error ? error.message : "Google login failed",
+    });
+  }
+};
 export const authController = {
   registerUser,
   loginUser,
   refreshToken,
   getMe,
+  googleLogin,
 };

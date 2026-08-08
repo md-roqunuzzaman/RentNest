@@ -65,10 +65,24 @@ const getAllRentals = CatchAsync(async (req, res) => {
   });
 });
 
+const getAnalytics = CatchAsync(async (req, res) => {
+  const result = await adminService.getAdminAnalytics();
+
+  sendResponse(res, {
+    statusCode: 200,
+
+    success: true,
+
+    message: "Analytics data retrieved successfully",
+
+    data: result,
+  });
+});
 export const adminController = {
   getAllUsers,
   updateUserStatus,
   getAllProperties,
   getStats,
   getAllRentals,
+  getAnalytics,
 };
