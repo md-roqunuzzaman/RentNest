@@ -20,7 +20,7 @@ import { contactRoute } from "./modules/contact/contact.route";
 const app: Application = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://rent-nest-frontend-tau.vercel.app",
     credentials: true,
   }),
 );
