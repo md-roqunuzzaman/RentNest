@@ -98,14 +98,14 @@ const googleLogin = async (req: Request, res: Response) => {
 
     res.cookie("accessToken", result.accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     res.cookie("refreshToken", result.refreshToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
 
     res.status(200).json({
