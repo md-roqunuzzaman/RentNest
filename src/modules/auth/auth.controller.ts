@@ -91,36 +91,32 @@ const getMe = CatchAsync(
 const googleLogin = async (req: Request, res: Response) => {
   try {
     const { token } = req.body;
-    console.log("body", req.body);
-    console.log("header", res.header);
+
+    console.log("Google body:", req.body);
+
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "Google token is required",
+      });
+    }
 
     const result = await authService.googleLoginService(token);
 
-    res.cookie("accessToken", result.accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
-
-    res.cookie("refreshToken", result.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
-
     res.status(200).json({
       success: true,
-
       message: "Google login successful",
-
-      data: result.user,
+      data: {
+        user: result.user,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+      },
     });
   } catch (error) {
     console.log("GOOGLE LOGIN ERROR:", error);
 
     res.status(400).json({
       success: false,
-
       message: error instanceof Error ? error.message : "Google login failed",
     });
   }
